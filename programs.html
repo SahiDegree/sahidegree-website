@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse 500+ Online Programs | EduMatch AI</title>
+  <meta name="description" content="Browse and compare 500+ UGC-approved online UG and PG programs in India. Filter by degree, fee, NAAC grade, duration. AI-powered program matching for Indian students.">
+  <meta name="keywords" content="online programs India, online MBA courses, UGC approved online degrees, best online courses India, online PG programs, online UG programs India 2025">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0A0F1E; --ink-soft: #1E2A45; --gold: #C9933A; --gold-light: #E8B96A;
+      --gold-pale: #FDF3E3; --cream: #FAFAF7; --white: #FFFFFF;
+      --blue-deep: #0E1F40; --blue-mid: #1A3366; --blue-soft: #E8EFF8;
+      --green: #1A6B4A; --green-light: #D4EDDA; --gray-100: #F5F5F0;
+      --gray-200: #E8E8E0; --gray-400: #9A9A8A; --gray-600: #5A5A50;
+      --radius: 12px; --radius-lg: 20px;
+      --shadow: 0 4px 24px rgba(10,15,30,0.10); --shadow-lg: 0 12px 48px rgba(10,15,30,0.18);
+    }
+    ::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--gray-100); color: var(--ink); }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 64px;
+      background: rgba(10,15,30,0.97); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(201,147,58,0.12);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 34px; height: 34px; background: linear-gradient(135deg,var(--gold),var(--gold-light)); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: white; letter-spacing: -0.02em; }
+    .nav-logo-text span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta { background: linear-gradient(135deg,var(--gold),var(--gold-light)); color: var(--ink) !important; padding: 0.45rem 1.1rem; border-radius: 100px; font-weight: 600 !important; font-size: 0.825rem !important; }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--ink);
+      padding: 100px 5vw 50px;
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 30% 50%, rgba(201,147,58,0.08) 0%, transparent 70%);
+    }
+    .page-header-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); color: white; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
+    .page-header h1 em { font-style: italic; background: linear-gradient(135deg,var(--gold),var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-header p { color: rgba(255,255,255,0.5); font-size: 1rem; max-width: 480px; }
+    .header-stats { display: flex; gap: 3rem; margin-top: 2rem; }
+    .hstat-num { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; font-weight: 500; color: var(--gold-light); }
+    .hstat-lbl { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    /* LAYOUT */
+    .main-layout { max-width: 1280px; margin: 0 auto; padding: 2.5rem 5vw; display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
+
+    /* FILTERS SIDEBAR */
+    .filters-panel {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 1.75rem;
+      height: fit-content; position: sticky; top: 80px;
+    }
+    .filters-title { font-weight: 700; font-size: 0.875rem; color: var(--ink); margin-bottom: 1.5rem; letter-spacing: 0.03em; text-transform: uppercase; }
+    .filter-group { margin-bottom: 1.75rem; border-bottom: 1px solid var(--gray-200); padding-bottom: 1.75rem; }
+    .filter-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .filter-group-label { font-size: 0.75rem; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+    .filter-option { display: flex; align-items: center; gap: 0.625rem; padding: 0.4rem 0; cursor: pointer; }
+    .filter-option input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--gold); cursor: pointer; }
+    .filter-option label { font-size: 0.875rem; color: var(--gray-600); cursor: pointer; flex: 1; }
+    .filter-option .count { font-size: 0.72rem; color: var(--gray-400); background: var(--gray-100); padding: 0.1rem 0.4rem; border-radius: 100px; }
+    .range-display { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--gray-600); }
+    input[type="range"] { width: 100%; accent-color: var(--gold); }
+    .apply-filters-btn {
+      width: 100%; padding: 0.75rem; border-radius: 100px;
+      background: linear-gradient(135deg,var(--gold),var(--gold-light));
+      border: none; color: var(--ink); font-weight: 700; font-size: 0.875rem;
+      cursor: pointer; transition: all 0.2s; margin-top: 0.5rem;
+    }
+    .apply-filters-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .clear-btn { width: 100%; padding: 0.6rem; border-radius: 100px; background: transparent; border: 1px solid var(--gray-200); color: var(--gray-600); font-size: 0.8rem; cursor: pointer; margin-top: 0.5rem; transition: all 0.2s; }
+    .clear-btn:hover { border-color: var(--gray-400); }
+
+    /* RESULTS AREA */
+    .results-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .results-count { font-size: 0.9rem; color: var(--gray-600); }
+    .results-count strong { color: var(--ink); }
+    .sort-bar { display: flex; align-items: center; gap: 0.75rem; }
+    .sort-label { font-size: 0.8rem; color: var(--gray-400); }
+    .sort-select {
+      padding: 0.45rem 0.875rem; border-radius: 8px;
+      border: 1px solid var(--gray-200); background: var(--white);
+      font-size: 0.85rem; color: var(--ink); cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .search-bar {
+      position: relative; margin-bottom: 1.25rem;
+    }
+    .search-bar input {
+      width: 100%; padding: 0.875rem 1rem 0.875rem 3rem;
+      border: 1px solid var(--gray-200); border-radius: var(--radius);
+      font-size: 0.925rem; font-family: 'DM Sans', sans-serif;
+      background: var(--white); transition: border-color 0.2s; outline: none; color: var(--ink);
+    }
+    .search-bar input:focus { border-color: var(--gold); }
+    .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 1rem; }
+    .tag-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .active-tag {
+      display: flex; align-items: center; gap: 0.35rem;
+      background: var(--gold-pale); border: 1px solid rgba(201,147,58,0.25);
+      color: var(--gold); padding: 0.25rem 0.75rem; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 500; cursor: pointer;
+    }
+    .active-tag:hover { background: rgba(201,147,58,0.2); }
+
+    /* PROGRAM CARDS */
+    .program-list { display: flex; flex-direction: column; gap: 1rem; }
+    .pcard {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); overflow: hidden;
+      transition: all 0.25s ease; cursor: pointer;
+    }
+    .pcard:hover { border-color: rgba(201,147,58,0.35); box-shadow: var(--shadow-lg); transform: translateX(4px); }
+    .pcard-inner { display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: 1.5rem; padding: 1.5rem; }
+    .pcard-logo { width: 64px; height: 64px; border-radius: 12px; background: var(--blue-deep); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; flex-shrink: 0; }
+    .pcard-main { flex: 1; min-width: 0; }
+    .pcard-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem; }
+    .pcard-college { font-size: 0.875rem; color: var(--gray-600); margin-bottom: 0.75rem; }
+    .pcard-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .ptag { padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.7rem; font-weight: 500; }
+    .ptag-naac { background: var(--green-light); color: var(--green); }
+    .ptag-ugc { background: var(--blue-soft); color: var(--blue-mid); }
+    .ptag-mode { background: var(--gold-pale); color: var(--gold); }
+    .ptag-level { background: var(--gray-100); color: var(--gray-600); }
+    .pcard-meta { display: flex; gap: 1.75rem; }
+    .pmeta { }
+    .pmeta-val { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; font-weight: 500; color: var(--ink); }
+    .pmeta-lbl { font-size: 0.65rem; color: var(--gray-400); }
+    .pcard-right { display: flex; flex-direction: column; align-items: flex-end; gap: 1rem; }
+    .pcard-score {
+      text-align: center;
+      background: linear-gradient(135deg,var(--gold),var(--gold-light));
+      border-radius: 12px; padding: 0.75rem 1rem; min-width: 80px;
+    }
+    .pcard-score-num { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--ink); line-height: 1; }
+    .pcard-score-lbl { font-size: 0.65rem; font-weight: 600; color: rgba(10,15,30,0.6); margin-top: 2px; }
+    .pcard-trust { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+    .trust-bar-mini { display: flex; gap: 3px; }
+    .tdot { width: 8px; height: 8px; border-radius: 50%; }
+    .trust-score-txt { font-size: 0.7rem; color: var(--gray-400); }
+    .pcard-cta {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--ink); color: white; padding: 0.6rem 1.25rem;
+      border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s; white-space: nowrap;
+    }
+    .pcard-cta:hover { background: var(--gold); color: var(--ink); }
+
+    /* LOAD MORE */
+    .load-more-area { text-align: center; margin-top: 2.5rem; }
+    .load-more-btn {
+      padding: 0.875rem 2.5rem; border-radius: 100px;
+      border: 2px solid var(--gray-200); background: var(--white);
+      color: var(--ink); font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      transition: all 0.25s; font-family: 'DM Sans', sans-serif;
+    }
+    .load-more-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* GET MATCH BANNER */
+    .get-match-banner {
+      background: linear-gradient(135deg, var(--blue-deep), var(--ink));
+      border-radius: var(--radius-lg); padding: 2rem;
+      margin-bottom: 2rem; text-align: center;
+    }
+    .get-match-banner h3 { font-family: 'Playfair Display', serif; color: white; font-size: 1.25rem; margin-bottom: 0.5rem; }
+    .get-match-banner p { color: rgba(255,255,255,0.55); font-size: 0.85rem; margin-bottom: 1.25rem; }
+    .match-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg,var(--gold),var(--gold-light));
+      color: var(--ink); padding: 0.7rem 1.5rem; border-radius: 100px;
+      font-weight: 700; font-size: 0.875rem; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .match-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,147,58,0.4); }
+
+    /* PAGINATION */
+    .pagination { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+    .page-btn { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-family: 'DM Sans', sans-serif; }
+    .page-btn:hover, .page-btn.active { background: var(--ink); color: white; border-color: var(--ink); }
+
+    @media (max-width: 900px) { .main-layout { grid-template-columns: 1fr; } .filters-panel { position: static; } .pcard-inner { grid-template-columns: 56px 1fr; } .pcard-right { display: none; } }
+    @media (max-width: 640px) { .nav-links { display: none; } .pcard-meta { gap: 1rem; flex-wrap: wrap; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🎓</div>
+      <span class="nav-logo-text">EduMatch <span>AI</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="programs.html" class="active">Programs</a></li>
+      <li><a href="colleges.html">Colleges</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://tally.so/r/YOURFORMID" target="_blank" class="nav-cta">Get Free Match</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p style="font-size:0.75rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">Browse Programs</p>
+      <h1>Find Your <em>Perfect</em> Program</h1>
+      <p>500+ UGC-approved online programs. AI-ranked for your profile. Updated weekly.</p>
+      <div class="header-stats">
+        <div><div class="hstat-num">500+</div><div class="hstat-lbl">Programs</div></div>
+        <div><div class="hstat-num">150+</div><div class="hstat-lbl">Colleges</div></div>
+        <div><div class="hstat-num">100%</div><div class="hstat-lbl">UGC Verified</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- FILTERS -->
+    <div class="filters-panel">
+      <div class="filters-title">🎛  Filters</div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Program Level</div>
+        <div class="filter-option"><input type="checkbox" id="ug" checked><label for="ug">Undergraduate (UG)</label><span class="count">184</span></div>
+        <div class="filter-option"><input type="checkbox" id="pg" checked><label for="pg">Postgraduate (PG)</label><span class="count">267</span></div>
+        <div class="filter-option"><input type="checkbox" id="cert"><label for="cert">Certificate / Diploma</label><span class="count">49</span></div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Degree Type</div>
+        <div class="filter-option"><input type="checkbox" id="mba"><label for="mba">MBA</label><span class="count">94</span></div>
+        <div class="filter-option"><input type="checkbox" id="mca"><label for="mca">MCA</label><span class="count">48</span></div>
+        <div class="filter-option"><input type="checkbox" id="msc"><label for="msc">MSc</label><span class="count">62</span></div>
+        <div class="filter-option"><input type="checkbox" id="bba"><label for="bba">BBA</label><span class="count">58</span></div>
+        <div class="filter-option"><input type="checkbox" id="bca"><label for="bca">BCA</label><span class="count">44</span></div>
+        <div class="filter-option"><input type="checkbox" id="bcom"><label for="bcom">BCom</label><span class="count">36</span></div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">NAAC Grade</div>
+        <div class="filter-option"><input type="checkbox" id="app"><label for="app">A++ Grade</label><span class="count">12</span></div>
+        <div class="filter-option"><input type="checkbox" id="ap"><label for="ap">A+ Grade</label><span class="count">38</span></div>
+        <div class="filter-option"><input type="checkbox" id="a"><label for="a">A Grade</label><span class="count">54</span></div>
+        <div class="filter-option"><input type="checkbox" id="bpp"><label for="bpp">B++ Grade</label><span class="count">46</span></div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Total Fee (₹ Lakhs)</div>
+        <div class="range-display"><span>₹0</span><span id="feeDisplay">₹5L</span></div>
+        <input type="range" min="0" max="10" step="0.5" value="5" oninput="document.getElementById('feeDisplay').textContent='₹'+this.value+'L'">
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Duration</div>
+        <div class="filter-option"><input type="checkbox" id="d12"><label for="d12">Under 12 months</label></div>
+        <div class="filter-option"><input type="checkbox" id="d24"><label for="d24">12–24 months</label></div>
+        <div class="filter-option"><input type="checkbox" id="d36"><label for="d36">24–36 months</label></div>
+        <div class="filter-option"><input type="checkbox" id="d48"><label for="d48">36+ months</label></div>
+      </div>
+
+      <div class="filter-group">
+        <div class="filter-group-label">Special Filters</div>
+        <div class="filter-option"><input type="checkbox" id="emi"><label for="emi">EMI Available</label></div>
+        <div class="filter-option"><input type="checkbox" id="schol"><label for="schol">Scholarship Available</label></div>
+        <div class="filter-option"><input type="checkbox" id="liveclasses"><label for="liveclasses">Live Classes</label></div>
+        <div class="filter-option"><input type="checkbox" id="placement"><label for="placement">Placement Support</label></div>
+      </div>
+
+      <button class="apply-filters-btn" onclick="applyFilters()">Apply Filters</button>
+      <button class="clear-btn" onclick="clearFilters()">Clear All Filters</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div>
+      <div class="get-match-banner">
+        <h3>🤖 Want programs matched to YOUR profile?</h3>
+        <p>Get AI-powered personalized recommendations in 3 minutes — free.</p>
+        <a href="https://tally.so/r/YOURFORMID" target="_blank" class="match-btn">⚡ Get My Free AI Match</a>
+      </div>
+
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search programs, colleges, specializations..." oninput="searchPrograms(this.value)">
+      </div>
+
+      <div class="tag-bar" id="activeTags"></div>
+
+      <div class="results-header">
+        <p class="results-count">Showing <strong id="resultCount">500+</strong> programs</p>
+        <div class="sort-bar">
+          <span class="sort-label">Sort by:</span>
+          <select class="sort-select" onchange="sortPrograms(this.value)">
+            <option value="match">Best Match</option>
+            <option value="fee_low">Fee: Low to High</option>
+            <option value="fee_high">Fee: High to Low</option>
+            <option value="salary">Highest Salary</option>
+            <option value="trust">Trust Score</option>
+            <option value="duration">Shortest Duration</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="program-list" id="programList"></div>
+
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+
+  <script>
+    const allPrograms = [
+      { id:1, name:"MBA in Digital Marketing & E-Commerce", college:"NMIMS University", logo:"🏛️", level:"PG", degree:"MBA", fee:285000, feeStr:"₹2.85L", dur:"24 mo", salary:"₹9.2L", naac:"A+", ugc:true, mode:"Online", score:92, trust:88, emi:true, placement:true },
+      { id:2, name:"MCA — Data Science & Artificial Intelligence", college:"Amity University Online", logo:"🎓", level:"PG", degree:"MCA", fee:180000, feeStr:"₹1.80L", dur:"24 mo", salary:"₹8.5L", naac:"A+", ugc:true, mode:"Online", score:89, trust:86, emi:true, placement:true },
+      { id:3, name:"BBA in Business Analytics", college:"Manipal University Online", logo:"🏫", level:"UG", degree:"BBA", fee:210000, feeStr:"₹2.10L", dur:"36 mo", salary:"₹5.8L", naac:"A++", ugc:true, mode:"Online", score:85, trust:91, emi:true, placement:false },
+      { id:4, name:"MBA Finance & Banking", college:"IGNOU", logo:"🏛️", level:"PG", degree:"MBA", fee:38000, feeStr:"₹38K", dur:"24 mo", salary:"₹7.2L", naac:"A", ugc:true, mode:"Distance", score:81, trust:95, emi:false, placement:false },
+      { id:5, name:"MSc Data Science & Machine Learning", college:"Liverpool John Moores University India", logo:"🔬", level:"PG", degree:"MSc", fee:450000, feeStr:"₹4.50L", dur:"18 mo", salary:"₹12.5L", naac:"A+", ugc:true, mode:"Online", score:87, trust:84, emi:true, placement:true },
+      { id:6, name:"MBA Human Resource Management", college:"Symbiosis Online", logo:"🏢", level:"PG", degree:"MBA", fee:195000, feeStr:"₹1.95L", dur:"24 mo", salary:"₹8.0L", naac:"A++", ugc:true, mode:"Online", score:83, trust:90, emi:true, placement:true },
+      { id:7, name:"BCA — Cloud Computing & DevOps", college:"Lovely Professional University", logo:"💻", level:"UG", degree:"BCA", fee:120000, feeStr:"₹1.20L", dur:"36 mo", salary:"₹5.2L", naac:"A", ugc:true, mode:"Online", score:79, trust:82, emi:true, placement:false },
+      { id:8, name:"MBA Operations & Supply Chain", college:"Chandigarh University Online", logo:"⚙️", level:"PG", degree:"MBA", fee:175000, feeStr:"₹1.75L", dur:"24 mo", salary:"₹8.8L", naac:"A+", ugc:true, mode:"Online", score:84, trust:83, emi:true, placement:true },
+      { id:9, name:"BSc Computer Science (AI Specialization)", college:"DY Patil University Online", logo:"🖥️", level:"UG", degree:"BSc", fee:140000, feeStr:"₹1.40L", dur:"36 mo", salary:"₹6.5L", naac:"A", ugc:true, mode:"Online", score:80, trust:79, emi:false, placement:false },
+      { id:10, name:"MBA International Business", college:"IU International University (India)", logo:"🌐", level:"PG", degree:"MBA", fee:380000, feeStr:"₹3.80L", dur:"18 mo", salary:"₹10.5L", naac:"A+", ugc:true, mode:"Online", score:82, trust:80, emi:true, placement:true },
+      { id:11, name:"BCom — Accounting & Finance", college:"IGNOU", logo:"🏛️", level:"UG", degree:"BCom", fee:15000, feeStr:"₹15K", dur:"36 mo", salary:"₹4.5L", naac:"A", ugc:true, mode:"Distance", score:75, trust:95, emi:false, placement:false },
+      { id:12, name:"MSc Cyber Security", college:"Jain University Online", logo:"🔒", level:"PG", degree:"MSc", fee:220000, feeStr:"₹2.20L", dur:"24 mo", salary:"₹10.8L", naac:"A", ugc:true, mode:"Online", score:86, trust:80, emi:true, placement:true },
+    ];
+
+    let displayed = [...allPrograms];
+    let currentPage = 1;
+    const perPage = 8;
+
+    function renderPrograms() {
+      const list = document.getElementById('programList');
+      const start = (currentPage - 1) * perPage;
+      const pageData = displayed.slice(start, start + perPage);
+      list.innerHTML = pageData.map(p => {
+        const dots = Array.from({length:5},(_,i) => `<div class="tdot" style="background:${i < Math.round(p.trust/20) ? (p.trust>=80?'#1A6B4A':'#C9933A') : '#E8E8E0'}"></div>`).join('');
+        return `
+        <div class="pcard" onclick="window.location='program-detail.html?id=${p.id}'">
+          <div class="pcard-inner">
+            <div class="pcard-logo">${p.logo}</div>
+            <div class="pcard-main">
+              <div class="pcard-name">${p.name}</div>
+              <div class="pcard-college">${p.college}</div>
+              <div class="pcard-tags">
+                <span class="ptag ptag-level">${p.level}</span>
+                <span class="ptag ptag-naac">NAAC ${p.naac}</span>
+                ${p.ugc?'<span class="ptag ptag-ugc">UGC Approved</span>':''}
+                <span class="ptag ptag-mode">${p.mode}</span>
+                ${p.emi?'<span class="ptag" style="background:#F3E8FF;color:#6D28D9;">EMI Available</span>':''}
+              </div>
+              <div class="pcard-meta">
+                <div class="pmeta"><div class="pmeta-val">${p.feeStr}</div><div class="pmeta-lbl">Total Fee</div></div>
+                <div class="pmeta"><div class="pmeta-val">${p.dur}</div><div class="pmeta-lbl">Duration</div></div>
+                <div class="pmeta"><div class="pmeta-val">${p.salary}</div><div class="pmeta-lbl">Avg Salary</div></div>
+              </div>
+            </div>
+            <div class="pcard-right">
+              <div class="pcard-score">
+                <div class="pcard-score-num">${p.score}</div>
+                <div class="pcard-score-lbl">AI SCORE</div>
+              </div>
+              <div class="pcard-trust">
+                <div class="trust-bar-mini">${dots}</div>
+                <span class="trust-score-txt">Trust: ${p.trust}/100</span>
+              </div>
+              <a href="program-detail.html?id=${p.id}" class="pcard-cta" onclick="event.stopPropagation()">View Details →</a>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+      document.getElementById('resultCount').textContent = displayed.length;
+      renderPagination();
+    }
+
+    function renderPagination() {
+      const total = Math.ceil(displayed.length / perPage);
+      const pg = document.getElementById('pagination');
+      pg.innerHTML = '';
+      for(let i = 1; i <= Math.min(total, 7); i++) {
+        pg.innerHTML += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+      }
+      if(total > 7) pg.innerHTML += `<button class="page-btn" onclick="goPage(${total})">...</button>`;
+    }
+
+    function goPage(n) { currentPage = n; renderPrograms(); window.scrollTo({top:280,behavior:'smooth'}); }
+
+    function searchPrograms(q) {
+      const lq = q.toLowerCase();
+      displayed = allPrograms.filter(p => p.name.toLowerCase().includes(lq) || p.college.toLowerCase().includes(lq) || p.degree.toLowerCase().includes(lq));
+      currentPage = 1; renderPrograms();
+    }
+
+    function sortPrograms(by) {
+      if(by === 'fee_low') displayed.sort((a,b) => a.fee - b.fee);
+      else if(by === 'fee_high') displayed.sort((a,b) => b.fee - a.fee);
+      else if(by === 'salary') displayed.sort((a,b) => parseFloat(b.salary) - parseFloat(a.salary));
+      else if(by === 'trust') displayed.sort((a,b) => b.trust - a.trust);
+      else if(by === 'match') displayed.sort((a,b) => b.score - a.score);
+      currentPage = 1; renderPrograms();
+    }
+
+    function applyFilters() {
+      // Simplified — in production connect to filter checkboxes
+      renderPrograms();
+    }
+    function clearFilters() {
+      document.querySelectorAll('.filters-panel input').forEach(cb => { if(cb.type==='checkbox') cb.checked = false; });
+      displayed = [...allPrograms];
+      currentPage = 1; renderPrograms();
+    }
+
+    renderPrograms();
+  </script>
+</body>
+</html>

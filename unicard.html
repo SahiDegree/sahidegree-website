@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniCard — MBA Digital Strategy | EduMatch AI</title>
+  <meta name="description" content="Personalized program intelligence card for MBA in Digital Strategy at NMIMS University. See your match score, ROI analysis, career outcomes, and why this program fits your profile.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #09090E;
+      --surface:   #111118;
+      --surface-2: #18181F;
+      --surface-3: #1E1E27;
+      --border:    rgba(255,255,255,0.07);
+      --border-h:  rgba(255,255,255,0.14);
+      --gold:      #D4A853;
+      --gold-2:    #EEC97A;
+      --gold-dim:  rgba(212,168,83,0.12);
+      --gold-glow: rgba(212,168,83,0.25);
+      --text:      #F0EDE8;
+      --text-2:    #A09A92;
+      --text-3:    #5C574F;
+      --green:     #3ECF8E;
+      --green-dim: rgba(62,207,142,0.10);
+      --red:       #F87171;
+      --red-dim:   rgba(248,113,113,0.10);
+      --blue:      #60A5FA;
+      --blue-dim:  rgba(96,165,250,0.10);
+      --amber:     #FBBF24;
+      --amber-dim: rgba(251,191,36,0.10);
+      --r:         14px;
+      --r-lg:      20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Instrument Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 3rem);
+      background: rgba(9,9,14,0.85); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 9px; text-decoration: none;
+      font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700;
+      color: var(--text); letter-spacing: -0.02em;
+    }
+    .nav-logo-mark {
+      width: 30px; height: 30px; border-radius: 7px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .nav-logo em { font-style: normal; color: var(--gold); }
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-btn {
+      padding: 0.45rem 1rem; border-radius: 100px;
+      font-size: 0.825rem; font-weight: 500; cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      transition: all 0.2s; text-decoration: none;
+    }
+    .nav-btn-ghost {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text-2);
+    }
+    .nav-btn-ghost:hover { border-color: var(--border-h); color: var(--text); }
+    .nav-btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      color: #09090E; border: none; font-weight: 600;
+    }
+    .nav-btn-gold:hover { opacity: 0.9; transform: translateY(-1px); }
+    .nav-back {
+      display: flex; align-items: center; gap: 0.4rem;
+      color: var(--text-2); font-size: 0.825rem; text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 1380px; margin: 0 auto;
+      padding: 80px clamp(1rem, 4vw, 2.5rem) 4rem;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      grid-template-rows: auto;
+      gap: 0 2rem;
+      position: relative; z-index: 1;
+    }
+
+    /* ── PERSONA STRIP ── */
+    .persona-strip {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .persona-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      color: var(--gold); text-transform: uppercase; flex-shrink: 0;
+    }
+    .persona-name {
+      font-family: 'Fraunces', serif; font-size: 1rem;
+      color: var(--text); font-weight: 600;
+    }
+    .persona-chips { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .pchip {
+      padding: 0.2rem 0.65rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 500; white-space: nowrap;
+    }
+    .pchip-gold  { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(212,168,83,0.2); }
+    .pchip-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(62,207,142,0.2); }
+    .pchip-blue  { background: var(--blue-dim);  color: var(--blue);  border: 1px solid rgba(96,165,250,0.2); }
+    .pchip-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.2); }
+    .persona-edit {
+      margin-left: auto; font-size: 0.775rem; color: var(--text-3);
+      text-decoration: none; flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .persona-edit:hover { color: var(--gold); }
+
+    /* ── MAIN COLUMN ── */
+    .main-col { min-width: 0; }
+
+    /* ── UNICARD HEADER ── */
+    .unicard-header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      margin-bottom: 1.25rem;
+      position: relative; overflow: hidden;
+    }
+    .unicard-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-2), transparent);
+    }
+    .college-row {
+      display: flex; align-items: flex-start; gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .college-emblem {
+      width: 64px; height: 64px; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(135deg, #1a2035, #0d1525);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+    .college-info { flex: 1; min-width: 0; }
+    .college-name {
+      font-size: 0.825rem; color: var(--text-2); margin-bottom: 0.25rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .verified-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      background: var(--green-dim); border: 1px solid rgba(62,207,142,0.2);
+      color: var(--green); padding: 0.15rem 0.5rem; border-radius: 100px;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.03em;
+    }
+    .program-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700; color: var(--text);
+      letter-spacing: -0.03em; line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .program-title em {
+      font-style: italic; color: var(--gold);
+    }
+    .program-tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .ptag {
+      padding: 0.25rem 0.7rem; border-radius: 8px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
+    }
+    .ptag-naac  { background: var(--green-dim); color: var(--green); }
+    .ptag-ugc   { background: var(--blue-dim);  color: var(--blue); }
+    .ptag-mode  { background: var(--gold-dim);  color: var(--gold); }
+    .ptag-nirf  { background: var(--amber-dim); color: var(--amber); }
+    .ptag-level { background: var(--surface-3); color: var(--text-2); }
+
+    /* ── STATS RIBBON ── */
+    .stats-ribbon {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--r);
+      overflow: hidden; margin-top: 1.5rem;
+    }
+    .stat-cell {
+      background: var(--surface-2);
+      padding: 1rem; text-align: center;
+    }
+    .stat-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.15rem; font-weight: 500; color: var(--text);
+      margin-bottom: 2px;
+    }
+    .stat-lbl { font-size: 0.68rem; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase; }
+
+    /* ── SECTION CARD ── */
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
+      color: var(--text-3); text-transform: uppercase; margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    /* ── DIMENSION SCORES ── */
+    .dimensions-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem;
+    }
+    .dim-block {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1rem 0.75rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .dim-block:hover { border-color: var(--border-h); }
+    .dim-bar-bg {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--surface-3);
+    }
+    .dim-bar-fill {
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; border-radius: 0 3px 3px 0;
+      transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .dim-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.4rem; font-weight: 500;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .dim-weight {
+      font-size: 0.62rem; color: var(--text-3); margin-bottom: 6px;
+    }
+    .dim-name { font-size: 0.7rem; color: var(--text-2); font-weight: 500; }
+
+    /* ── MATCH REASONS ── */
+    .reasons-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .reason-item {
+      display: flex; align-items: flex-start; gap: 0.875rem;
+      padding: 0.875rem 1rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      transition: border-color 0.2s;
+    }
+    .reason-item:hover { border-color: var(--green); }
+    .reason-icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .reason-icon-green { background: var(--green-dim); }
+    .reason-icon-gold  { background: var(--gold-dim); }
+    .reason-icon-blue  { background: var(--blue-dim); }
+    .reason-text { font-size: 0.875rem; color: var(--text); line-height: 1.55; }
+    .reason-text strong { color: var(--green); }
+
+    .caution-item { }
+    .caution-item:hover { border-color: var(--amber) !important; }
+    .caution-icon { background: var(--amber-dim) !important; }
+    .caution-text strong { color: var(--amber) !important; }
+
+    /* ── CAREER PATHWAY ── */
+    .career-pathway {
+      display: flex; align-items: center; gap: 0;
+      overflow-x: auto; padding-bottom: 0.5rem;
+    }
+    .career-pathway::-webkit-scrollbar { height: 3px; }
+    .career-pathway::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    .career-node {
+      display: flex; flex-direction: column; align-items: center;
+      flex-shrink: 0; width: 120px; text-align: center;
+    }
+    .career-circle {
+      width: 52px; height: 52px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; margin-bottom: 0.5rem;
+      position: relative;
+    }
+    .career-circle-current {
+      background: var(--gold-dim); border: 2px solid var(--gold);
+    }
+    .career-circle-mid {
+      background: var(--blue-dim); border: 2px solid rgba(96,165,250,0.4);
+    }
+    .career-circle-target {
+      background: var(--green-dim); border: 2px solid var(--green);
+    }
+    .career-circle-beyond {
+      background: var(--surface-3); border: 1px solid var(--border);
+    }
+    .career-role { font-size: 0.72rem; font-weight: 600; color: var(--text); line-height: 1.3; }
+    .career-salary { font-size: 0.65rem; color: var(--text-3); margin-top: 2px; }
+    .career-arrow {
+      font-size: 0.75rem; color: var(--text-3); padding: 0 0.25rem; flex-shrink: 0;
+      margin-bottom: 1.5rem;
+    }
+    .career-you-tag {
+      position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: #09090E;
+      font-size: 0.55rem; font-weight: 700; padding: 0.1rem 0.4rem;
+      border-radius: 100px; white-space: nowrap;
+    }
+    .career-target-tag {
+      position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #09090E;
+      font-size: 0.55rem; font-weight: 700; padding: 0.1rem 0.4rem;
+      border-radius: 100px; white-space: nowrap;
+    }
+
+    /* ── CURRICULUM GRID ── */
+    .curriculum-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.625rem;
+    }
+    .curriculum-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.625rem 0.875rem;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 10px; font-size: 0.8rem; color: var(--text-2);
+      transition: all 0.2s;
+    }
+    .curriculum-item:hover { border-color: var(--border-h); color: var(--text); }
+    .curriculum-item.match-skill {
+      background: var(--green-dim); border-color: rgba(62,207,142,0.2);
+      color: var(--green);
+    }
+    .curriculum-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── ELIGIBILITY CHECKLIST ── */
+    .eligibility-list { display: flex; flex-direction: column; gap: 0.625rem; }
+    .elig-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--surface-2); border-radius: var(--r);
+      border: 1px solid var(--border);
+    }
+    .elig-icon { font-size: 1rem; flex-shrink: 0; }
+    .elig-label { font-size: 0.85rem; color: var(--text); flex: 1; }
+    .elig-status { font-size: 0.75rem; font-weight: 600; }
+    .elig-pass { color: var(--green); }
+    .elig-warn { color: var(--amber); }
+    .elig-fail { color: var(--red); }
+
+    /* ── FACULTY STRIP ── */
+    .faculty-row { display: flex; gap: 1rem; overflow-x: auto; padding-bottom: 0.25rem; }
+    .faculty-card {
+      flex-shrink: 0; width: 140px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1rem; text-align: center;
+    }
+    .faculty-avatar {
+      width: 44px; height: 44px; border-radius: 50%; margin: 0 auto 0.625rem;
+      background: linear-gradient(135deg, var(--gold-dim), var(--blue-dim));
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .faculty-name { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .faculty-role { font-size: 0.68rem; color: var(--text-3); }
+
+    /* ── SIDEBAR ── */
+    .sidebar-col { position: relative; }
+    .sidebar-sticky { position: sticky; top: 76px; }
+
+    /* ── MATCH SCORE HERO CARD ── */
+    .score-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 2rem;
+      margin-bottom: 1.25rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .score-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .score-hero-label {
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 1.5rem;
+    }
+    .score-ring-wrap {
+      position: relative; width: 140px; height: 140px; margin: 0 auto 1.25rem;
+    }
+    .score-ring-wrap svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+    .score-ring-inner {
+      position: absolute; inset: 14px;
+      background: var(--surface-2); border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .score-number {
+      font-family: 'Fraunces', serif; font-size: 2.75rem; font-weight: 700;
+      color: var(--text); line-height: 1;
+    }
+    .score-denom { font-size: 0.875rem; color: var(--text-3); }
+    .score-tier {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold-dim), transparent);
+      border: 1px solid rgba(212,168,83,0.25);
+      color: var(--gold); padding: 0.3rem 1.25rem; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+    }
+    .score-subline {
+      font-size: 0.825rem; color: var(--text-2); line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .action-btns { display: flex; flex-direction: column; gap: 0.625rem; }
+    .btn-apply {
+      width: 100%; padding: 0.875rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-2));
+      border: none; border-radius: var(--r); cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 0.925rem; font-weight: 700; color: #09090E;
+      transition: all 0.2s;
+    }
+    .btn-apply:hover { opacity: 0.92; transform: translateY(-2px); box-shadow: 0 8px 24px var(--gold-glow); }
+    .btn-save {
+      width: 100%; padding: 0.75rem;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--r); cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 0.875rem; font-weight: 500; color: var(--text-2);
+      transition: all 0.2s;
+    }
+    .btn-save:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-compare {
+      width: 100%; padding: 0.625rem;
+      background: transparent; border: none; cursor: pointer;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 0.8rem; color: var(--text-3);
+      transition: color 0.2s;
+    }
+    .btn-compare:hover { color: var(--blue); }
+
+    /* ── TRUST CARD ── */
+    .trust-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .trust-overall {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .trust-title { font-size: 0.8rem; color: var(--text-2); }
+    .trust-score-badge {
+      background: var(--green-dim); border: 1px solid rgba(62,207,142,0.25);
+      color: var(--green); padding: 0.3rem 0.875rem; border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; font-weight: 500;
+    }
+    .trust-breakdown { display: flex; flex-direction: column; gap: 0.625rem; }
+    .trust-row {
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .trust-row-label { font-size: 0.775rem; color: var(--text-2); flex: 1; }
+    .trust-track { flex: 0 0 100px; height: 5px; background: var(--surface-3); border-radius: 3px; overflow: hidden; }
+    .trust-fill { height: 100%; border-radius: 3px; transition: width 1.5s cubic-bezier(0.16,1,0.3,1); }
+    .trust-pts { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--gold); width: 30px; text-align: right; }
+
+    /* ── ROI CARD ── */
+    .roi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .roi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+    .roi-label { font-size: 0.8rem; color: var(--text-2); }
+    .roi-score {
+      font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 700;
+      color: var(--green); line-height: 1;
+    }
+    .roi-rows { display: flex; flex-direction: column; gap: 0.75rem; }
+    .roi-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+    }
+    .roi-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .roi-row-lbl { font-size: 0.8rem; color: var(--text-2); }
+    .roi-row-val { font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; color: var(--text); }
+    .roi-row-val.positive { color: var(--green); }
+    .roi-row-val.highlight { color: var(--gold); }
+    .roi-callout {
+      margin-top: 1rem; padding: 0.875rem;
+      background: var(--green-dim); border: 1px solid rgba(62,207,142,0.15);
+      border-radius: var(--r); font-size: 0.8rem; color: var(--green); line-height: 1.5;
+    }
+
+    /* ── SIMILAR PROGRAMS ── */
+    .similar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 1.5rem;
+    }
+    .similar-item {
+      display: flex; align-items: center; gap: 0.875rem;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none; color: inherit; transition: all 0.2s;
+    }
+    .similar-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .similar-item:hover { padding-left: 0.5rem; }
+    .similar-logo {
+      width: 36px; height: 36px; border-radius: 8px; background: var(--surface-3);
+      display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .similar-info { flex: 1; min-width: 0; }
+    .similar-name { font-size: 0.825rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .similar-college { font-size: 0.72rem; color: var(--text-3); }
+    .similar-score {
+      background: var(--gold-dim); color: var(--gold);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500;
+      padding: 0.2rem 0.5rem; border-radius: 6px; flex-shrink: 0;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scoreIn {
+      from { stroke-dashoffset: 408; }
+    }
+
+    .animate-in {
+      opacity: 0; animation: fadeUp 0.6s ease forwards;
+    }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.1s; }
+    .d3 { animation-delay: 0.15s; }
+    .d4 { animation-delay: 0.2s; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 1024px) {
+      .page { grid-template-columns: 1fr; }
+      .sidebar-col { order: -1; }
+      .sidebar-sticky { position: static; }
+      .score-hero { text-align: left; }
+      .score-ring-wrap { margin: 0 0 1.25rem; }
+      .dimensions-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .stats-ribbon { grid-template-columns: repeat(2, 1fr); }
+      .dimensions-grid { grid-template-columns: repeat(2, 1fr); }
+      .persona-strip { flex-direction: column; align-items: flex-start; }
+      .persona-edit { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="my-matches.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+    My Matches
+  </a>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">🎓</div>
+    EduMatch <em>AI</em>
+  </a>
+  <div class="nav-actions">
+    <a href="my-matches.html" class="nav-btn nav-btn-ghost">← All Matches</a>
+    <a href="#apply" class="nav-btn nav-btn-gold">Apply Now</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ── PERSONA STRIP ── -->
+  <div class="persona-strip animate-in d1">
+    <span class="persona-label">Matching For</span>
+    <span class="persona-name" id="personaName">Rahul Khanna</span>
+    <div class="persona-chips" id="personaChips">
+      <span class="pchip pchip-gold" id="pc1">BCom Graduate</span>
+      <span class="pchip pchip-blue" id="pc2">3 yrs Work Exp</span>
+      <span class="pchip pchip-amber" id="pc3">Sales → Marketing</span>
+      <span class="pchip pchip-green" id="pc4">Budget: ₹3.5L</span>
+    </div>
+    <a href="my-matches.html" class="persona-edit">Change profile →</a>
+  </div>
+
+  <!-- ══════════ MAIN COLUMN ══════════ -->
+  <div class="main-col">
+
+    <!-- HEADER CARD -->
+    <div class="unicard-header animate-in d1">
+      <div class="college-row">
+        <div class="college-emblem">🏛️</div>
+        <div class="college-info">
+          <div class="college-name">
+            NMIMS University (Narsee Monjee)
+            <span class="verified-badge">✓ UGC Verified</span>
+          </div>
+          <h1 class="program-title">MBA in <em>Digital Strategy</em><br>& Marketing</h1>
+          <div class="program-tag-row">
+            <span class="ptag ptag-naac">NAAC A+</span>
+            <span class="ptag ptag-ugc">UGC-DEB</span>
+            <span class="ptag ptag-mode">100% Online</span>
+            <span class="ptag ptag-nirf">NIRF #41</span>
+            <span class="ptag ptag-level">Post Graduate</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-ribbon">
+        <div class="stat-cell">
+          <div class="stat-val">₹2.85L</div>
+          <div class="stat-lbl">Total Fee</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val">24 mo</div>
+          <div class="stat-lbl">Duration</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val">₹9.2L</div>
+          <div class="stat-lbl">Avg. Salary</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-val">Jan / Jul</div>
+          <div class="stat-lbl">Next Intake</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIMENSIONS CARD -->
+    <div class="section-card animate-in d2">
+      <div class="section-label">Your Match Breakdown — 5 Dimensions</div>
+      <div class="dimensions-grid" id="dimensionsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- MATCH REASONS -->
+    <div class="section-card animate-in d2">
+      <div class="section-label">Why This Matches You</div>
+      <div class="reasons-list" id="reasonsList"></div>
+    </div>
+
+    <!-- CAUTION FLAGS -->
+    <div class="section-card animate-in d3">
+      <div class="section-label">Things to Consider</div>
+      <div class="reasons-list" id="cautionList"></div>
+    </div>
+
+    <!-- CAREER PATHWAY -->
+    <div class="section-card animate-in d3">
+      <div class="section-label">Your Career Pathway After This Program</div>
+      <div class="career-pathway" id="careerPathway"></div>
+      <p style="font-size:0.8rem;color:var(--text-3);margin-top:1.25rem;line-height:1.5;">
+        Salary estimates based on LinkedIn alumni data (N=312) and National Career Service Portal benchmarks. Individual outcomes vary.
+      </p>
+    </div>
+
+    <!-- CURRICULUM -->
+    <div class="section-card animate-in d3">
+      <div class="section-label">Curriculum Highlights</div>
+      <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem;">
+        <span style="width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block;"></span>
+        <span style="font-size:0.78rem;color:var(--text-2);">Green = directly addresses your skill gaps for target role</span>
+      </div>
+      <div class="curriculum-grid" id="curriculumGrid"></div>
+    </div>
+
+    <!-- ELIGIBILITY -->
+    <div class="section-card animate-in d4">
+      <div class="section-label">Eligibility Check — Your Profile</div>
+      <div class="eligibility-list" id="eligibilityList"></div>
+    </div>
+
+    <!-- FACULTY -->
+    <div class="section-card animate-in d4">
+      <div class="section-label">Faculty & Delivery</div>
+      <div class="faculty-row" id="facultyRow"></div>
+      <div style="margin-top:1.25rem;display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;">
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:0.875rem;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--text);">2×/week</div>
+          <div style="font-size:0.68rem;color:var(--text-3);margin-top:3px;">LIVE Sessions</div>
+        </div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:0.875rem;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--text);">8–10 hrs</div>
+          <div style="font-size:0.68rem;color:var(--text-3);margin-top:3px;">Per Week</div>
+        </div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:var(--r);padding:0.875rem;text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:var(--text);">9–11 PM</div>
+          <div style="font-size:0.68rem;color:var(--text-3);margin-top:3px;">IST Weekdays</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main-col -->
+
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <div class="sidebar-col">
+    <div class="sidebar-sticky">
+
+      <!-- MATCH SCORE HERO -->
+      <div class="score-hero animate-in d1">
+        <div class="score-hero-label">AI Match Score — Your Profile</div>
+        <div class="score-ring-wrap">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="60" fill="none"
+              stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+            <circle cx="70" cy="70" r="60" fill="none"
+              stroke="url(#scoreGrad)" stroke-width="8"
+              stroke-linecap="round"
+              stroke-dasharray="377"
+              stroke-dashoffset="48"
+              id="scoreCircle"
+              style="transition: stroke-dashoffset 1.8s cubic-bezier(0.16,1,0.3,1)"/>
+            <defs>
+              <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#D4A853"/>
+                <stop offset="100%" stop-color="#EEC97A"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="score-ring-inner">
+            <div class="score-number" id="scoreDisplay">0</div>
+            <div class="score-denom">/100</div>
+          </div>
+        </div>
+        <div class="score-tier" id="scoreTier">EXCELLENT MATCH</div>
+        <p class="score-subline" id="scoreSubline">This program aligns strongly with your career goal of moving into Digital Marketing leadership, using your existing sales experience as leverage.</p>
+        <div class="action-btns" id="apply">
+          <button class="btn-apply" onclick="handleApply()">
+            Apply Now — Download Admission Form
+          </button>
+          <button class="btn-save" onclick="handleSave(this)">
+            ♡ Save to Shortlist
+          </button>
+          <button class="btn-compare">+ Add to Compare</button>
+        </div>
+      </div>
+
+      <!-- TRUST CARD -->
+      <div class="trust-card animate-in d2">
+        <div class="trust-overall">
+          <span class="trust-title">College Trust Score</span>
+          <span class="trust-score-badge">88 / 100</span>
+        </div>
+        <div class="trust-breakdown" id="trustBreakdown"></div>
+      </div>
+
+      <!-- ROI CARD -->
+      <div class="roi-card animate-in d3">
+        <div class="roi-header">
+          <span class="roi-label">ROI Analysis — Your Numbers</span>
+          <span class="roi-score" id="roiScore">78</span>
+        </div>
+        <div class="roi-rows" id="roiRows"></div>
+        <div class="roi-callout" id="roiCallout"></div>
+      </div>
+
+      <!-- SIMILAR PROGRAMS -->
+      <div class="similar-card animate-in d4">
+        <div class="section-label" style="margin-bottom:0.875rem;">Similar Programs for You</div>
+        <div id="similarPrograms"></div>
+      </div>
+
+    </div>
+  </div><!-- end sidebar -->
+
+</div><!-- end page -->
+
+<script>
+// ─────────────────────────────────────────────────
+// STUDENT PERSONA (in production: from localStorage / API)
+// ─────────────────────────────────────────────────
+const persona = {
+  name: "Rahul Khanna",
+  education: "BCom Graduate",
+  workExpMonths: 36,
+  currentRole: "Sales Executive",
+  currentIndustry: "FMCG Sales",
+  currentSalaryLPA: 4.8,
+  targetRoles: ["Digital Marketing Manager", "Brand Manager", "Growth Manager"],
+  careerGoalType: "switch",
+  maxBudgetINR: 350000,
+  preferredMode: "online",
+  timePerWeek: 10,
+  skills: ["Relationship Management", "Presentation", "Excel", "CRM", "Negotiation"],
+  skillGaps: ["SEO/SEM", "Google Analytics", "Marketing Automation", "Content Strategy", "Data-Driven Marketing"],
+};
+
+// ─────────────────────────────────────────────────
+// PROGRAM DATA
+// ─────────────────────────────────────────────────
+const program = {
+  name: "MBA in Digital Strategy & Marketing",
+  college: "NMIMS University",
+  feeINR: 285000,
+  durationMonths: 24,
+  avgSalaryLPA: 9.2,
+  curriculumCovers: ["Digital Marketing Strategy", "SEO & SEM Mastery", "Google Analytics 4", "Marketing Automation", "Content Strategy & SEO", "Brand Management", "Consumer Behavior", "Social Media Marketing", "E-Commerce Strategy", "Data Analytics", "B2B & B2C Strategy", "Capstone Project"],
+  trustBreakdown: [
+    { label: "UGC-DEB Approved", pts: 30, max: 30 },
+    { label: "NAAC A+ Grade",    pts: 22, max: 25 },
+    { label: "NIRF Rank #41",    pts: 14, max: 20 },
+    { label: "Est. 1981 (43 yrs)",pts: 12, max: 15 },
+    { label: "Online since 2018", pts: 7,  max: 10 },
+  ],
+  careerPath: [
+    { role: "Sales Executive",        salary: "₹4.8L", type: "current", emoji: "💼", tag: "YOU NOW" },
+    { role: "Digital Marketing Exec", salary: "₹6.2L", type: "mid",     emoji: "📱" },
+    { role: "Marketing Manager",      salary: "₹9.2L", type: "target",  emoji: "🎯", tag: "TARGET" },
+    { role: "Digital Strategy Lead",  salary: "₹14L",  type: "beyond",  emoji: "🚀" },
+    { role: "CMO / VP Marketing",     salary: "₹28L+", type: "beyond",  emoji: "👑" },
+  ],
+  faculty: [
+    { name: "Dr. Priya Mehta",     role: "Digital Strategy", emoji: "👩‍🏫" },
+    { name: "Sandeep Krishnan",    role: "MarTech Expert",   emoji: "👨‍💻" },
+    { name: "Aisha Patel",         role: "Brand Management", emoji: "👩‍💼" },
+    { name: "Vikram Nair",         role: "Analytics Lead",   emoji: "📊" },
+  ],
+  eligibilityChecks: [
+    { icon: "🎓", label: "Any UG degree from recognized university", status: "pass", note: "BCom ✓" },
+    { icon: "📊", label: "Minimum 50% marks in graduation", status: "pass", note: "Assumed pass — verify with certificate" },
+    { icon: "💼", label: "Work experience required", status: "pass", note: "3 years (>2 yrs required) ✓" },
+    { icon: "⏰", label: "8–10 hours/week availability", status: "pass", note: "You indicated 10 hrs/week ✓" },
+    { icon: "💳", label: "Budget: ₹2.85L (your limit: ₹3.5L)", status: "pass", note: "₹65K under budget ✓" },
+    { icon: "📅", label: "Next intake: January 2026", status: "warn", note: "Apply by Nov 30, 2025" },
+  ],
+  similarPrograms: [
+    { name: "MBA Digital Marketing", college: "Amity Online",      score: 81, emoji: "🎓" },
+    { name: "MBA Marketing Mgmt",    college: "Manipal Online",     score: 79, emoji: "🏫" },
+    { name: "PGP Digital Marketing", college: "MICA Online",        score: 76, emoji: "📱" },
+    { name: "MBA Brand Strategy",    college: "Symbiosis Online",   score: 74, emoji: "🏢" },
+  ],
+};
+
+// ─────────────────────────────────────────────────
+// SCORING ENGINE
+// ─────────────────────────────────────────────────
+function calcScores(p, prog) {
+  // Program Fit: skill gap coverage + career alignment
+  const gaps = p.skillGaps;
+  const covered = prog.curriculumCovers.filter(c =>
+    gaps.some(g => c.toLowerCase().includes(g.split('/')[0].toLowerCase()) ||
+      g.toLowerCase().includes(c.split(' ')[0].toLowerCase()))
+  ).length;
+  const skillCoverage = Math.min(1, covered / gaps.length);
+  const careerAligned = prog.careerPath.some(cp =>
+    p.targetRoles.some(r => cp.role.toLowerCase().includes(r.split(' ')[0].toLowerCase()))
+  );
+  const programFit = Math.round(skillCoverage * 55 + (careerAligned ? 35 : 0) + 7);
+
+  // College Fit: trust score normalized
+  const collegeFit = Math.round((prog.trustBreakdown.reduce((s, t) => s + t.pts, 0) / 100) * 100);
+
+  // ROI Fit
+  const expectedLPA  = prog.avgSalaryLPA;
+  const currentLPA   = p.currentSalaryLPA;
+  const feeLakhs     = prog.feeINR / 100000;
+  const budgetLakhs  = p.maxBudgetINR / 100000;
+  const uplift       = (expectedLPA - currentLPA) / Math.max(currentLPA, 3);
+  const afford       = Math.min(1, budgetLakhs / feeLakhs);
+  const monthlyUplift = (expectedLPA - currentLPA) * 100000 / 12;
+  const breakEvenMo  = monthlyUplift > 0 ? feeLakhs * 100000 / monthlyUplift : 999;
+  const breakPoints  = breakEvenMo < 12 ? 30 : breakEvenMo < 24 ? 22 : breakEvenMo < 36 ? 12 : 3;
+  const roiFit       = Math.round(Math.min(40, uplift * 18) + afford * 30 + breakPoints);
+
+  // Career Switch
+  const expMonths = p.workExpMonths;
+  const transferable = p.skills.filter(s =>
+    ["presentation","relationship","excel","negotiation"].some(k => s.toLowerCase().includes(k))
+  ).length;
+  const careerSwitch = Math.round(
+    Math.min(38, (transferable / p.skills.length) * 38) +
+    Math.min(32, (expMonths / 36) * 32) + 20
+  );
+
+  // Preference Match
+  const modeOk   = p.preferredMode === "online" ? 20 : 10;
+  const timeOk   = p.timePerWeek >= 8 ? 30 : p.timePerWeek >= 5 ? 18 : 5;
+  const durOk    = prog.durationMonths <= 24 ? 30 : 20;
+  const prefMatch = Math.round(modeOk + timeOk + durOk + 10);
+
+  const weights = { programFit:.30, collegeFit:.20, roiFit:.25, careerSwitch:.15, prefMatch:.10 };
+  const overall = Math.round(
+    programFit * weights.programFit +
+    collegeFit * weights.collegeFit +
+    roiFit     * weights.roiFit +
+    careerSwitch * weights.careerSwitch +
+    prefMatch  * weights.prefMatch
+  );
+
+  return { programFit, collegeFit, roiFit, careerSwitch, prefMatch, overall };
+}
+
+const scores = calcScores(persona, program);
+
+// ─────────────────────────────────────────────────
+// RENDER FUNCTIONS
+// ─────────────────────────────────────────────────
+
+function colorForScore(s) {
+  if (s >= 80) return 'var(--green)';
+  if (s >= 65) return 'var(--gold)';
+  if (s >= 50) return 'var(--amber)';
+  return 'var(--red)';
+}
+
+// Score ring animation
+function animateScore(target) {
+  let current = 0;
+  const el = document.getElementById('scoreDisplay');
+  const circle = document.getElementById('scoreCircle');
+  const dur = 1800;
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - start) / dur);
+    const ease = 1 - Math.pow(1 - t, 3);
+    current = Math.round(ease * target);
+    el.textContent = current;
+    // circumference = 2π×60 ≈ 377. Offset for score%
+    const offset = 377 - (377 * (current / 100));
+    circle.setAttribute('stroke-dashoffset', offset);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Dimensions
+function renderDimensions() {
+  const dims = [
+    { key: 'programFit',   name: 'Program\nFit',    weight: '30%', score: scores.programFit },
+    { key: 'collegeFit',   name: 'College\nTrust',  weight: '20%', score: scores.collegeFit },
+    { key: 'roiFit',       name: 'ROI\nFit',        weight: '25%', score: scores.roiFit },
+    { key: 'careerSwitch', name: 'Career\nSwitch',  weight: '15%', score: scores.careerSwitch },
+    { key: 'prefMatch',    name: 'Preference\nFit', weight: '10%', score: scores.prefMatch },
+  ];
+  document.getElementById('dimensionsGrid').innerHTML = dims.map(d => `
+    <div class="dim-block">
+      <div class="dim-score" style="color:${colorForScore(d.score)}">${d.score}</div>
+      <div class="dim-weight">${d.weight} weight</div>
+      <div class="dim-name">${d.name.replace('\n', '<br>')}</div>
+      <div class="dim-bar-bg"></div>
+      <div class="dim-bar-fill" id="bar-${d.key}"
+        style="background:${colorForScore(d.score)};width:0%"></div>
+    </div>
+  `).join('');
+  setTimeout(() => {
+    dims.forEach(d => {
+      const el = document.getElementById(`bar-${d.key}`);
+      if (el) el.style.width = d.score + '%';
+    });
+  }, 200);
+}
+
+// Match Reasons
+function renderReasons() {
+  const salaryUplift = ((program.avgSalaryLPA - persona.currentSalaryLPA) / persona.currentSalaryLPA * 100).toFixed(0);
+  const covered = program.curriculumCovers.filter(c =>
+    persona.skillGaps.some(g => c.toLowerCase().includes(g.split('/')[0].toLowerCase()) ||
+      g.toLowerCase().includes(c.split(' ')[0].toLowerCase()))
+  );
+  const reasons = [
+    { icon:"🎯", type:"green", text:`Your target role of <strong>Digital Marketing Manager</strong> is the #1 career outcome from this program — 38% of graduates move into exactly this role within 18 months.` },
+    { icon:"💼", type:"gold", text:`Your <strong>3 years in FMCG Sales</strong> is a direct advantage. This program's B2B/B2C strategy and brand management modules are built for professionals who understand the ground. You're not starting from zero.` },
+    { icon:"📚", type:"green", text:`This program covers <strong>${covered.length} of your ${persona.skillGaps.length} identified skill gaps</strong> — including ${covered.slice(0,3).join(', ')}. That's the highest coverage of any program in your matches.` },
+    { icon:"💰", type:"green", text:`At ₹2.85L total fee, this is <strong>₹${((persona.maxBudgetINR - program.feeINR)/100000).toFixed(2)}L under your stated budget of ₹${(persona.maxBudgetINR/100000).toFixed(1)}L</strong>. EMI available — split across 8 months.` },
+    { icon:"📈", type:"blue", text:`Expected salary of ₹9.2L is a <strong>${salaryUplift}% uplift</strong> from your current ₹4.8L. At that rate, you recover the full program fee in approximately <strong>17 months</strong> post-graduation.` },
+    { icon:"🏛️", type:"gold", text:`NMIMS holds an <strong>NAAC A+ grade and NIRF rank #41</strong>. Their online degrees are accepted by 94% of Indian employers in our HR survey — well above the 70% industry average.` },
+  ];
+  document.getElementById('reasonsList').innerHTML = reasons.map(r => `
+    <div class="reason-item">
+      <div class="reason-icon reason-icon-${r.type}">${r.icon}</div>
+      <div class="reason-text">${r.text}</div>
+    </div>
+  `).join('');
+}
+
+// Caution Flags
+function renderCautions() {
+  const cautions = [
+    { icon:"⏰", text:`<strong>Live sessions run 9–11 PM IST on weeknights.</strong> Confirm your current work schedule allows for this commitment 2–3 nights a week for 24 months.` },
+    { icon:"📊", text:`<strong>Salary data is partially self-reported by the college.</strong> The ₹9.2L average includes high-performing outliers. The median salary is closer to ₹7.8L — still a strong uplift for you.` },
+    { icon:"🔄", text:`<strong>Career switch timeline:</strong> Most alumni needed 3–6 months post-graduation to land a Digital Marketing role. Plan your finances accordingly for this transition period.` },
+  ];
+  document.getElementById('cautionList').innerHTML = cautions.map(c => `
+    <div class="reason-item caution-item">
+      <div class="reason-icon caution-icon">${c.icon}</div>
+      <div class="reason-text caution-text">${c.text}</div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.caution-text strong').forEach(el => {
+    el.style.color = 'var(--amber)';
+  });
+}
+
+// Career Pathway
+function renderCareerPath() {
+  const container = document.getElementById('careerPathway');
+  program.careerPath.forEach((node, i) => {
+    const typeClass = `career-circle-${node.type}`;
+    container.innerHTML += `
+      <div class="career-node">
+        <div class="career-circle ${typeClass}">
+          ${node.emoji}
+          ${node.tag ? `<div class="${node.tag === 'YOU NOW' ? 'career-you-tag' : 'career-target-tag'}">${node.tag}</div>` : ''}
+        </div>
+        <div class="career-role">${node.role}</div>
+        <div class="career-salary">${node.salary} avg</div>
+      </div>
+    `;
+    if (i < program.careerPath.length - 1) {
+      container.innerHTML += `<div class="career-arrow">→</div>`;
+    }
+  });
+}
+
+// Curriculum
+function renderCurriculum() {
+  const skillGapSet = new Set(persona.skillGaps.map(g => g.split('/')[0].toLowerCase()));
+  document.getElementById('curriculumGrid').innerHTML = program.curriculumCovers.map(c => {
+    const isMatch = skillGapSet.has(c.split(' ')[0].toLowerCase()) ||
+      [...skillGapSet].some(g => c.toLowerCase().includes(g));
+    return `
+      <div class="curriculum-item ${isMatch ? 'match-skill' : ''}">
+        <div class="curriculum-dot" style="background:${isMatch ? 'var(--green)' : 'var(--surface-3)'}"></div>
+        ${c}
+      </div>
+    `;
+  }).join('');
+}
+
+// Eligibility
+function renderEligibility() {
+  document.getElementById('eligibilityList').innerHTML = program.eligibilityChecks.map(e => {
+    const s = e.status;
+    return `
+      <div class="elig-row">
+        <div class="elig-icon">${e.icon}</div>
+        <div class="elig-label">${e.label}</div>
+        <div>
+          <div class="elig-status elig-${s}">${s === 'pass' ? '✓ Met' : s === 'warn' ? '⚠ Note' : '✗ Not Met'}</div>
+          <div style="font-size:0.68rem;color:var(--text-3);margin-top:2px;">${e.note}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Faculty
+function renderFaculty() {
+  document.getElementById('facultyRow').innerHTML = program.faculty.map(f => `
+    <div class="faculty-card">
+      <div class="faculty-avatar">${f.emoji}</div>
+      <div class="faculty-name">${f.name}</div>
+      <div class="faculty-role">${f.role}</div>
+    </div>
+  `).join('');
+}
+
+// Trust breakdown
+function renderTrust() {
+  document.getElementById('trustBreakdown').innerHTML = program.trustBreakdown.map(t => `
+    <div class="trust-row">
+      <div class="trust-row-label">${t.label}</div>
+      <div class="trust-track">
+        <div class="trust-fill" style="width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-2))"
+          data-width="${(t.pts/t.max*100)}%"></div>
+      </div>
+      <div class="trust-pts">${t.pts}/${t.max}</div>
+    </div>
+  `).join('');
+  setTimeout(() => {
+    document.querySelectorAll('.trust-fill').forEach(el => {
+      el.style.width = el.dataset.width;
+    });
+  }, 300);
+}
+
+// ROI
+function renderROI() {
+  const feeLakhs   = (program.feeINR / 100000).toFixed(2);
+  const currSal    = persona.currentSalaryLPA;
+  const expSal     = program.avgSalaryLPA;
+  const uplift     = (expSal - currSal).toFixed(1);
+  const upliftPct  = ((expSal - currSal) / currSal * 100).toFixed(0);
+  const breakEvenMo = Math.round((program.feeINR / ((expSal - currSal) * 100000 / 12)));
+
+  document.getElementById('roiRows').innerHTML = [
+    { lbl: 'Program Investment',       val: `₹${feeLakhs}L`,                                cl: '' },
+    { lbl: 'Your Current Salary',      val: `₹${currSal}L/yr`,                              cl: '' },
+    { lbl: 'Expected Post-Grad Salary',val: `₹${expSal}L/yr`,                               cl: 'positive' },
+    { lbl: 'Annual Salary Uplift',     val: `+₹${uplift}L (+${upliftPct}%)`,               cl: 'positive' },
+    { lbl: 'Break-even Period',        val: `~${breakEvenMo} months post-grad`,            cl: 'highlight' },
+    { lbl: '5-Year Net Gain',          val: `₹${((expSal-currSal)*4 - parseFloat(feeLakhs)).toFixed(1)}L`, cl: 'positive' },
+  ].map(r => `
+    <div class="roi-row">
+      <span class="roi-row-lbl">${r.lbl}</span>
+      <span class="roi-row-val ${r.cl}">${r.val}</span>
+    </div>
+  `).join('');
+
+  document.getElementById('roiCallout').textContent =
+    `At ₹${expSal}L average salary, you recover your full investment in ~${breakEvenMo} months. After that, you're ${upliftPct}% ahead in earnings — every year, for the rest of your career.`;
+}
+
+// Similar Programs
+function renderSimilar() {
+  document.getElementById('similarPrograms').innerHTML = program.similarPrograms.map(p => `
+    <a href="unicard.html" class="similar-item">
+      <div class="similar-logo">${p.emoji}</div>
+      <div class="similar-info">
+        <div class="similar-name">${p.name}</div>
+        <div class="similar-college">${p.college}</div>
+      </div>
+      <div class="similar-score">${p.score}</div>
+    </a>
+  `).join('');
+}
+
+// Score tier
+function getTier(s) {
+  if (s >= 85) return 'EXCELLENT MATCH';
+  if (s >= 75) return 'STRONG MATCH';
+  if (s >= 65) return 'GOOD MATCH';
+  if (s >= 50) return 'FAIR MATCH';
+  return 'WEAK MATCH';
+}
+
+// CTA handlers
+function handleApply() {
+  window.open('https://razorpay.com', '_blank'); // Replace with real Razorpay link
+}
+function handleSave(btn) {
+  btn.textContent = btn.textContent.includes('♡') ? '♥ Saved!' : '♡ Save to Shortlist';
+  btn.style.borderColor = btn.textContent.includes('Saved') ? 'var(--gold)' : '';
+  btn.style.color = btn.textContent.includes('Saved') ? 'var(--gold)' : '';
+}
+
+// ─────────────────────────────────────────────────
+// INIT — Run everything
+// ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  // Update persona strip from data
+  document.getElementById('personaName').textContent = persona.name;
+  document.getElementById('pc1').textContent = persona.education;
+  document.getElementById('pc2').textContent = `${Math.round(persona.workExpMonths/12)} yrs Work Exp`;
+  document.getElementById('pc3').textContent = `${persona.currentIndustry} → Marketing`;
+  document.getElementById('pc4').textContent = `Budget: ₹${(persona.maxBudgetINR/100000).toFixed(1)}L`;
+
+  // Set tier
+  document.getElementById('scoreTier').textContent = getTier(scores.overall);
+  document.getElementById('roiScore').textContent = scores.roiFit;
+
+  // Render all sections
+  renderDimensions();
+  renderReasons();
+  renderCautions();
+  renderCareerPath();
+  renderCurriculum();
+  renderEligibility();
+  renderFaculty();
+  renderTrust();
+  renderROI();
+  renderSimilar();
+
+  // Animate score (slight delay for page load)
+  setTimeout(() => animateScore(scores.overall), 400);
+});
+</script>
+
+</body>
+</html>

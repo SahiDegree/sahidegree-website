@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Education Intelligence Blog | EduMatch AI</title>
+  <meta name="description" content="India's most trusted blog for online education guidance. MBA reviews, career switch guides, UGC explainers, salary benchmarks, and program comparisons for Indian students.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0A0F1E; --gold: #C9933A; --gold-light: #E8B96A; --gold-pale: #FDF3E3;
+      --cream: #FAFAF7; --white: #FFFFFF; --blue-deep: #0E1F40;
+      --gray-100: #F5F5F0; --gray-200: #E8E8E0; --gray-400: #9A9A8A; --gray-600: #5A5A50;
+      --green: #1A6B4A; --green-light: #D4EDDA; --blue-mid: #1A3366; --blue-soft: #E8EFF8;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; height: 64px; background: rgba(10,15,30,0.97); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(201,147,58,0.12); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 34px; height: 34px; background: linear-gradient(135deg,var(--gold),var(--gold-light)); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .nav-logo-text { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: white; }
+    .nav-logo-text span { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta { background: linear-gradient(135deg,var(--gold),var(--gold-light)); color: var(--ink) !important; padding: 0.45rem 1.1rem; border-radius: 100px; font-weight: 600 !important; font-size: 0.825rem !important; }
+
+    .blog-header { background: var(--ink); padding: 100px 5vw 60px; }
+    .blog-header-inner { max-width: 1280px; margin: 0 auto; }
+    .blog-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,3rem); color: white; font-weight: 700; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
+    .blog-header h1 em { font-style: italic; background: linear-gradient(135deg,var(--gold),var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .blog-header p { color: rgba(255,255,255,0.5); font-size: 1rem; max-width: 500px; margin-bottom: 1.5rem; }
+    .cat-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .cat-pill { padding: 0.35rem 1rem; border-radius: 100px; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6); font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
+    .cat-pill:hover, .cat-pill.active { background: var(--gold); color: var(--ink); border-color: var(--gold); font-weight: 600; }
+
+    .blog-layout { max-width: 1280px; margin: 0 auto; padding: 3rem 5vw; display: grid; grid-template-columns: 1fr 340px; gap: 3rem; }
+
+    /* FEATURED */
+    .featured-card {
+      grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr;
+      background: var(--white); border: 1px solid var(--gray-200); border-radius: 20px;
+      overflow: hidden; margin-bottom: 1rem; text-decoration: none; color: inherit;
+      transition: all 0.3s ease;
+    }
+    .featured-card:hover { box-shadow: 0 16px 48px rgba(10,15,30,0.15); transform: translateY(-3px); }
+    .featured-img { background: linear-gradient(135deg, var(--blue-deep), #1A3366); min-height: 300px; display: flex; align-items: center; justify-content: center; font-size: 5rem; position: relative; }
+    .featured-label { position: absolute; top: 1.25rem; left: 1.25rem; background: var(--gold); color: var(--ink); padding: 0.3rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; }
+    .featured-body { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+    .featured-cat { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.75rem; }
+    .featured-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--ink); line-height: 1.25; margin-bottom: 1rem; letter-spacing: -0.02em; }
+    .featured-excerpt { font-size: 0.925rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; }
+    .featured-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.8rem; color: var(--gray-400); }
+    .featured-meta strong { color: var(--ink); }
+
+    /* ARTICLE GRID */
+    .articles-main { }
+    .section-divider { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--gray-400); text-transform: uppercase; padding-bottom: 0.75rem; border-bottom: 2px solid var(--gray-200); margin-bottom: 1.5rem; }
+    .articles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .article-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; transition: all 0.25s ease; display: flex; flex-direction: column; }
+    .article-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(10,15,30,0.12); border-color: rgba(201,147,58,0.25); }
+    .article-img { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; position: relative; }
+    .article-cat-badge { position: absolute; bottom: 10px; left: 12px; background: var(--gold); color: var(--ink); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.68rem; font-weight: 700; }
+    .article-body { padding: 1.25rem; flex: 1; }
+    .article-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--ink); line-height: 1.4; margin-bottom: 0.5rem; }
+    .article-excerpt { font-size: 0.825rem; color: var(--gray-600); line-height: 1.6; margin-bottom: 0.875rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .article-meta { font-size: 0.72rem; color: var(--gray-400); display: flex; justify-content: space-between; }
+    .article-meta span { color: var(--gold); }
+
+    /* SIDEBAR */
+    .blog-sidebar { }
+    .sidebar-widget { background: var(--white); border: 1px solid var(--gray-200); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .widget-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 1.25rem; }
+    .popular-item { display: flex; gap: 0.875rem; padding: 0.75rem 0; border-bottom: 1px solid var(--gray-200); text-decoration: none; color: inherit; }
+    .popular-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .popular-item:hover .popular-title { color: var(--gold); }
+    .popular-num { width: 28px; height: 28px; border-radius: 6px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 700; color: var(--gold); font-size: 0.875rem; flex-shrink: 0; }
+    .popular-title { font-size: 0.85rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
+    .popular-views { font-size: 0.72rem; color: var(--gray-400); margin-top: 0.25rem; }
+    .topic-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .topic-pill { padding: 0.3rem 0.75rem; border-radius: 100px; background: var(--gray-100); color: var(--gray-600); font-size: 0.775rem; text-decoration: none; transition: all 0.2s; }
+    .topic-pill:hover { background: var(--gold); color: var(--ink); }
+    .newsletter-widget { background: linear-gradient(135deg, var(--blue-deep), var(--ink)); border: none; }
+    .newsletter-widget .widget-title { color: rgba(255,255,255,0.5); }
+    .newsletter-widget h3 { font-family: 'Playfair Display', serif; color: white; font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .newsletter-widget p { color: rgba(255,255,255,0.5); font-size: 0.825rem; line-height: 1.6; margin-bottom: 1.25rem; }
+    .newsletter-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; background: rgba(255,255,255,0.08); color: white; font-size: 0.875rem; margin-bottom: 0.75rem; outline: none; font-family: 'DM Sans', sans-serif; }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
+    .newsletter-btn { width: 100%; padding: 0.75rem; border-radius: 8px; background: linear-gradient(135deg,var(--gold),var(--gold-light)); border: none; color: var(--ink); font-weight: 700; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .newsletter-btn:hover { opacity: 0.9; }
+
+    @media (max-width: 1024px) { .blog-layout { grid-template-columns: 1fr; } .featured-card { grid-template-columns: 1fr; } .featured-img { min-height: 200px; } }
+    @media (max-width: 640px) { .nav-links { display: none; } .articles-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🎓</div>
+      <span class="nav-logo-text">EduMatch <span>AI</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="colleges.html">Colleges</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://tally.so/r/YOURFORMID" target="_blank" class="nav-cta">Get Free Match</a></li>
+    </ul>
+  </nav>
+
+  <div class="blog-header">
+    <div class="blog-header-inner">
+      <h1>Education <em>Intelligence</em><br>for Indian Students</h1>
+      <p>No fluff. No college ads. Real data, honest analysis, and actionable guides.</p>
+      <div class="cat-pills">
+        <span class="cat-pill active">All Articles</span>
+        <span class="cat-pill">MBA Guides</span>
+        <span class="cat-pill">Career Switch</span>
+        <span class="cat-pill">Data Science</span>
+        <span class="cat-pill">UGC & Accreditation</span>
+        <span class="cat-pill">Salary Data</span>
+        <span class="cat-pill">College Reviews</span>
+        <span class="cat-pill">Scholarships</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="blog-layout">
+    <!-- FEATURED -->
+    <a href="blog/online-mba-india-2025.html" class="featured-card">
+      <div class="featured-img">
+        🎓
+        <span class="featured-label">⭐ FEATURED</span>
+      </div>
+      <div class="featured-body">
+        <div class="featured-cat">MBA Guide • June 2025</div>
+        <h2 class="featured-title">Best Online MBA Programs in India 2025: Complete Guide with Fees, NAAC Grades & Placement Data</h2>
+        <p class="featured-excerpt">We analyzed 94 online MBA programs across India — scraped fees from college websites, verified NAAC grades from the official portal, and pulled salary data from 2,400+ LinkedIn alumni profiles. This is the most comprehensive online MBA guide ever published for Indian students.</p>
+        <div class="featured-meta">
+          <strong>Arindam Roy</strong>
+          <span>June 5, 2025</span>
+          <span>•</span>
+          <span>18 min read</span>
+          <span>•</span>
+          <span style="color:var(--gold)">14,200 views</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- MAIN CONTENT -->
+    <div class="articles-main">
+      <div class="section-divider">Latest Articles</div>
+      <div class="articles-grid" id="articlesGrid">
+        <!-- Rendered by JS -->
+      </div>
+      <div style="text-align:center;">
+        <button onclick="loadMore()" style="padding:0.875rem 2.5rem;border-radius:100px;border:2px solid var(--gray-200);background:var(--white);font-size:0.9rem;font-weight:600;cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gray-200)';this.style.color='var(--ink)'">Load More Articles</button>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="blog-sidebar">
+      <div class="newsletter-widget sidebar-widget">
+        <div class="widget-title">📬 Weekly Digest</div>
+        <h3>Stay ahead of every intake</h3>
+        <p>Get our weekly newsletter with new programs, fee changes, and scholarship alerts.</p>
+        <input type="email" class="newsletter-input" placeholder="your@email.com">
+        <button class="newsletter-btn" onclick="subscribe()">Subscribe Free →</button>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-title">🔥 Most Read</div>
+        <a href="#" class="popular-item">
+          <div class="popular-num">1</div>
+          <div>
+            <div class="popular-title">Online MBA vs Regular MBA — Honest 2025 Comparison</div>
+            <div class="popular-views">22,400 views</div>
+          </div>
+        </a>
+        <a href="#" class="popular-item">
+          <div class="popular-num">2</div>
+          <div>
+            <div class="popular-title">IGNOU MBA Review: Is It Worth It in 2025?</div>
+            <div class="popular-views">18,900 views</div>
+          </div>
+        </a>
+        <a href="#" class="popular-item">
+          <div class="popular-num">3</div>
+          <div>
+            <div class="popular-title">How to Switch to Data Science from Non-Tech Background</div>
+            <div class="popular-views">16,200 views</div>
+          </div>
+        </a>
+        <a href="#" class="popular-item">
+          <div class="popular-num">4</div>
+          <div>
+            <div class="popular-title">UGC DEB vs Regular UGC: What's the Difference?</div>
+            <div class="popular-views">12,800 views</div>
+          </div>
+        </a>
+        <a href="#" class="popular-item">
+          <div class="popular-num">5</div>
+          <div>
+            <div class="popular-title">Average Salary After Online MBA: Real Data from 500 Alumni</div>
+            <div class="popular-views">11,400 views</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-title">🏷️ Browse Topics</div>
+        <div class="topic-pills">
+          <a href="#" class="topic-pill">Online MBA</a>
+          <a href="#" class="topic-pill">MCA Programs</a>
+          <a href="#" class="topic-pill">Data Science</a>
+          <a href="#" class="topic-pill">Career Switch</a>
+          <a href="#" class="topic-pill">UGC Approved</a>
+          <a href="#" class="topic-pill">NAAC Grade</a>
+          <a href="#" class="topic-pill">Fees Guide</a>
+          <a href="#" class="topic-pill">Scholarships</a>
+          <a href="#" class="topic-pill">Working Professionals</a>
+          <a href="#" class="topic-pill">NIRF Rankings</a>
+          <a href="#" class="topic-pill">EMI Guide</a>
+          <a href="#" class="topic-pill">Placement Data</a>
+        </div>
+      </div>
+
+      <div class="sidebar-widget" style="background:linear-gradient(135deg,#1A6B4A,#065F46);border:none;text-align:center;">
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.75rem;">Free Tool</p>
+        <h3 style="font-family:'Playfair Display',serif;color:white;font-size:1.1rem;margin-bottom:0.5rem;">Get Your AI Match</h3>
+        <p style="color:rgba(255,255,255,0.55);font-size:0.825rem;line-height:1.6;margin-bottom:1.25rem;">3 minutes. Free. Personalized to YOUR career goals.</p>
+        <a href="https://tally.so/r/YOURFORMID" target="_blank" style="display:block;padding:0.75rem;border-radius:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--ink);font-weight:700;font-size:0.875rem;text-decoration:none;transition:all 0.2s;">⚡ Start Free Now →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const articles = [
+      { title:"How to Switch Careers to Data Science from Any Background in India", cat:"Career Switch", emoji:"📊", color:"#0F4C2A,#1A6B4A", date:"June 3", read:"15 min", views:"12,200", excerpt:"A step-by-step roadmap with the exact programs, timeline, and salary expectations for switching to data science from sales, commerce, or engineering." },
+      { title:"UGC-DEB Approved Online Degrees: What It Really Means for Your Job Prospects", cat:"UGC Guide", emoji:"🏛️", color:"#4C1D95,#6D28D9", date:"May 28", read:"10 min", views:"6,800", excerpt:"We called 50 HR managers and asked if they care about UGC-DEB approval. The answers will surprise you." },
+      { title:"NMIMS vs Amity vs Manipal: Which Online MBA Should You Choose in 2025?", cat:"Comparison", emoji:"⚖️", color:"#0E1F40,#1A3366", date:"May 22", read:"14 min", views:"9,400", excerpt:"Head-to-head comparison across 12 parameters: fees, NAAC grade, placement rate, alumni salary, live sessions, and more." },
+      { title:"Complete Guide to Online BCA in India: Top Programs, Fees & Career Outcomes", cat:"Tech Programs", emoji:"💻", color:"#1A3366,#2563EB", date:"May 18", read:"11 min", views:"5,200", excerpt:"Everything you need to know about online BCA in India — which universities are worth it, and which to avoid." },
+      { title:"How NAAC Grade Affects Your Job Prospects: Data from 1,000 Indian Employers", cat:"Accreditation", emoji:"📋", color:"#92400E,#B45309", date:"May 12", read:"8 min", views:"7,800", excerpt:"We surveyed Indian recruiters. Here's exactly how much NAAC grade matters — and when it doesn't." },
+      { title:"Online Degree While Working: How to Choose Without Burning Out", cat:"Working Professionals", emoji:"⏰", color:"#065F46,#047857", date:"May 6", read:"9 min", views:"4,400", excerpt:"Practical advice for people managing a full-time job and a part-time degree — from time management to employer communication." },
+    ];
+
+    let showing = 6;
+
+    function renderArticles() {
+      document.getElementById('articlesGrid').innerHTML = articles.slice(0, showing).map((a,i) => `
+        <a href="#" class="article-card">
+          <div class="article-img" style="background:linear-gradient(135deg,${a.color});">
+            ${a.emoji}
+            <span class="article-cat-badge">${a.cat}</span>
+          </div>
+          <div class="article-body">
+            <div class="article-title">${a.title}</div>
+            <div class="article-excerpt">${a.excerpt}</div>
+            <div class="article-meta"><span>${a.views} views</span><span>${a.date} • ${a.read}</span></div>
+          </div>
+        </a>`).join('');
+    }
+
+    function loadMore() { showing = Math.min(showing + 4, articles.length); renderArticles(); }
+    function subscribe() { alert('Thanks! You will receive your first digest next Tuesday.'); }
+
+    renderArticles();
+
+    document.querySelectorAll('.cat-pill').forEach(p => {
+      p.addEventListener('click', () => {
+        document.querySelectorAll('.cat-pill').forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
